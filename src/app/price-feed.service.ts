@@ -20,7 +20,7 @@ export class PriceFeedService {
         this.socket.onopen = () => {this.socket.send(this.MESSAGE)}
         this.socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
-            classThis.observer.next(event.data);
+            classThis.observer.next(JSON.parse(event.data));
         });
         return this.createObservable();
     }
