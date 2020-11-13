@@ -1,6 +1,9 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .flex-container {
     display: flex;
-    width: 400px
 }
 
 .flex-child {
@@ -9,4 +12,33 @@
 
 .flex-child:first-child {
     margin-right: 20px;
-} 
+}
+
+.order-book {
+    width: 600px;
+    background-color: black;
+}
+
+.text-white {
+    color: whitesmoke;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-green {
+    color: green;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.pointer-hand {
+    cursor: grab;
+}

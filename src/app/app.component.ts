@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
     last;
     bids;
     offers;
+    selectedPrice;
 
     constructor(obs: OrderBookService) {
         this.orderBookService = obs;
@@ -35,5 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     onRowClicked(row) {
         console.log(row)
+        this.selectedPrice = row.price
     }
 }

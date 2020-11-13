@@ -1,42 +1,55 @@
 <div>last {{last}}</div>
 
-<div class="flex-container">
+<div class="order-book">
+    <input type="text" [ngModel]="selectedPrice" placeholder="foo"/>
+    <div class="flex-container">
 
-    <div class="flex-child">
-        <div *ngFor="let bid of bids">
-            
+        <div class="flex-child">
             <div class="flex-container">
-
-                <div class="flex-child">
+                <div class="flex-child text-white underline">TOTAL</div>
+                <div class="flex-child text-white underline right-align">PRICE</div>
+            </div>
+            <div *ngFor="let bid of bids">
+                
+                <div class="flex-container" (click)="onRowClicked(bid)">
+    
+                    <div class="flex-child text-white">
+                        
+                        <span>{{bid.qty | number}}</span>
+                    </div>
                     
-                    <span>{{bid.qty | number}}</span>
+                    <div class="flex-child text-green right-align pointer-hand">
+                        <span>{{bid.price | number}}</span>
+                    </div>
+                    
                 </div>
-                
-                <div class="flex-child">
-                    <span>{{bid.price | number}}</span>
-                </div>
-                
             </div>
         </div>
-    </div>
-    
-    <div class="flex-child">
-        <div *ngFor="let offer of offers">
+        
+        <div class="flex-child">
+            <div class="flex-container">
+                <div class="flex-child text-white underline">PRICE</div>
+                <div class="flex-child text-white underline right-align">TOTAL</div>
+            </div>
             
-
-            <div class="flex-container" (click)="onRowClicked(offer)">
-
-                <div class="flex-child">
+            <div *ngFor="let offer of offers">
+                
+    
+                <div class="flex-container" (click)="onRowClicked(offer)">
+    
+                    <div class="flex-child text-red pointer-hand">
+                        
+                        <span>{{offer.price | number}}</span>
+                    </div>
                     
-                    <span>{{offer.price | number}}</span>
+                    <div class="flex-child text-white right-align">
+                        <span>{{offer.qty | number}}</span>
+                    </div>
+                    
                 </div>
-                
-                <div class="flex-child">
-                    <span>{{offer.qty | number}}</span>
-                </div>
-                
             </div>
         </div>
+        
     </div>
-    
 </div>
+
