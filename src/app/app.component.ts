@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PriceFeedService } from './price-feed.service'
 
 @Component({
@@ -6,7 +6,7 @@ import { PriceFeedService } from './price-feed.service'
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'order-book-app';
     priceFeedService;
 
@@ -15,7 +15,10 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        const data = this.priceFeedService.getData()
-        console.log(data)
+        this.priceFeedService.getData().subscribe(console.log)
+    }
+
+    ngOnDestroy() {
+        this.priceFeedService.close();
     }
 }

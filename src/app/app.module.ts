@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PriceFeedService } from './price-feed.service'
+import { OrderBookService}  from './order-book-service.service'
 
 @NgModule({
     declarations: [
@@ -10,7 +11,7 @@ import { PriceFeedService } from './price-feed.service'
     imports: [
         BrowserModule
     ],
-    providers: [PriceFeedService],
+    providers: [PriceFeedService, OrderBookService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
