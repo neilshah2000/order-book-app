@@ -5,9 +5,9 @@
     <div class="flex-container">
 
         <div class="flex-child">
-            <div class="flex-container">
-                <div class="flex-child text-white underline">TOTAL</div>
-                <div class="flex-child text-white underline right-align">PRICE</div>
+            <div class="flex-container order-header">
+                <div class="flex-child text-grey underline">TOTAL</div>
+                <div class="flex-child text-grey underline right-align">PRICE</div>
             </div>
             <div *ngFor="let bid of bids">
                 
@@ -27,9 +27,9 @@
         </div>
         
         <div class="flex-child">
-            <div class="flex-container">
-                <div class="flex-child text-white underline">PRICE</div>
-                <div class="flex-child text-white underline right-align">TOTAL</div>
+            <div class="flex-container order-header">
+                <div class="flex-child text-grey underline">PRICE</div>
+                <div class="flex-child text-grey underline right-align">TOTAL</div>
             </div>
             
             <div *ngFor="let offer of offers">

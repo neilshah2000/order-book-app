@@ -1,3 +1,10 @@
+# Optimisations
+
+- subscribe() is called on both price feed and order book. We can probably do it on one.
+- order book subscription is created in constructor. Probably better to wait until getOrders() is called before creating subscription.
+
+
+
 # OrderBookApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.

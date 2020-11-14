@@ -2,38 +2,41 @@ import { Injectable } from '@angular/core';
 import { PriceFeedService } from './price-feed.service'
 import { Observable } from 'rxjs';
 import { Observer } from 'rxjs';
+import { Order } from '../interfaces/Order'
+import { OrderBook } from './../interfaces/OrderBook'
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrderBookService {
-    priceFeedService: PriceFeedService;
-    orderBook: Observer<Object>;
-    orderBookObservable: Observable<Object>
-    orders = [];
-    bids = {};
-    offers = {};
-    last;
+    private priceFeedService: PriceFeedService;
+    private orderBook: Observer<Object>;
+    private orderBookObservable: Observable<Object>
+    private orders = [];
+    private bids = {};
+    private offers = {};
+    private last;
 
     constructor(pfs: PriceFeedService) {
         this.priceFeedService = pfs;
         this.orderBookObservable = new Observable<Object>((subscriber) => {
             this.orderBook = subscriber
         });
-        this.priceFeedService.getData().subscribe((order: any) => {
+        this.priceFeedService.getData().subscribe((order: Order) => {
             // this.orders.push(order)
             if (order.side === 'buy') {
                 if (order.qty === 0) {
                     delete this.bids[order.price]
                 } else {
-                    this.bids[order.price] = order.qty
+                    this.bids[order.price] = order
                 }
             }
             if (order.side === 'sell') {
                 if (order.qty === 0) {
                     delete this.offers[order.price]
                 } else {
-                    this.offers[order.price] = order.qty
+                    this.offers[order.price] = order
                 }
             }
 
@@ -52,35 +55,17 @@ export class OrderBookService {
             const DEPTH = 10
 
             const bestOffers = sortedOffers.slice(0, DEPTH).map(price => {
-                return {
-                    price: price,
-                    qty: this.offers[price]
-                }
+                return this.offers[price]
             })
 
             const bestBids = sortedBids.slice(0, DEPTH).map(price => { 
-                return {
-                    price: price,
-                    qty: this.bids[price]
-                }
+                return this.bids[price]
             })
 
-            const myOrderBook = {
-                last: order.price,
-                bids: bestBids,
-                offers: bestOffers
-            }
+            const myOrderBook = new OrderBook(order.price, bestBids, bestOffers)
 
 
             this.orderBook.next(myOrderBook)
-
-            // feed: "book"
-            // price: 16247
-            // product_id: "PI_XBTUSD"
-            // qty: 2500
-            // seq: 11923191
-            // side: "buy"
-            // timestamp: 1605291757237
         })
     }
 
