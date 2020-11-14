@@ -1,3 +1,12 @@
+# Next Steps  TODO
+
+- fix tests for order book service
+- write test for price-feed service
+- write tests for app component
+- write e2e tests
+- improve styling on input
+
+
 # Optimisations
 
 - subscribe() is called on both price feed and order book. We can probably do it on one.

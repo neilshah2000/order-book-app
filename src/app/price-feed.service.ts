@@ -8,14 +8,14 @@ import { Order } from '../interfaces/Order'
   providedIn: 'root'
 })
 export class PriceFeedService {
-    END_POINT = 'wss://futures.kraken.com/ws/v1'
-    MESSAGE = '{"event":"subscribe","feed":"book","product_ids":["PI_XBTUSD"]}'
-    socket;
-    observer: Observer<Order>;
+    private END_POINT = 'wss://futures.kraken.com/ws/v1'
+    private MESSAGE = '{"event":"subscribe","feed":"book","product_ids":["PI_XBTUSD"]}'
+    private socket;
+    private observer: Observer<Order>;
 
     constructor() { }
 
-    getData() {
+    public getData(): Observable<Order> {
         const classThis = this;
         this.socket = new WebSocket(this.END_POINT);
         this.socket.onopen = () => {this.socket.send(this.MESSAGE)}
@@ -25,13 +25,13 @@ export class PriceFeedService {
         return this.createObservable();
     }
 
-    createObservable() : Observable<Order> {
+    public close() {
+        this.socket.close();
+    }
+
+    private createObservable() : Observable<Order> {
         return new Observable(observer => {
             this.observer = observer;
         });
-    }
-
-    close() {
-        this.socket.close();
     }
 }
